@@ -1,0 +1,144 @@
+.commands-page {
+  padding: 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.add-command {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.add-command input {
+  flex: 1;
+  padding: 0.5rem;
+}
+.commands-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.command-card {
+  background: #222;
+  color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+.command-card .cmd-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+button {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+button:hover {
+  background: #2563eb;
+}
+.automations-page {
+  padding: 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.add-automation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.add-automation input,
+.add-automation select {
+  flex: 1;
+  padding: 0.5rem;
+}
+
+.automations-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.automation-card {
+  background: #1f2937;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+}
+.auto-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.personality-page {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: #111827;
+  color: white;
+  border-radius: 12px;
+}
+
+.personality-page input,
+.personality-page select {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0.25rem 0 1rem;
+  border-radius: 6px;
+  border: none;
+}
+
+.personality-page button {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.preview-section {
+  margin-top: 2rem;
+}
+
+.ai-reply {
+  background: #1f2937;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+:root {
+  --primary: #22c55e;
+  --accent: #16a34a;
+}
+[data-theme="purple"] { --primary: #a855f7; --accent: #7e22ce; }
+[data-theme="blue"]   { --primary: #3b82f6; --accent: #1d4ed8; }
+[data-theme="red"]    { --primary: #ef4444; --accent: #b91c1c; }
+[data-theme="pink"]   { --primary: #ec4899; --accent: #be185d; }
+
+body { margin:0; background:#0a0a0a; color:#e5e7eb; font-family: ui-sans-serif,system-ui; }
+.bg-primary { background: var(--primary); }
+.text-primary { color: var(--primary); }
+
+
+
+.text-primary {
+  color: var(--primary);
+}
+
+.bg-primary {
+  background-color: var(--primary);
+}
+
+.border-primary {
+  border-color: var(--primary);
+}
+

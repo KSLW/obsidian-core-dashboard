@@ -1,70 +1,51 @@
-# Getting Started with Create React App
+# ⚙️ Obsidian Core Backend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The backend engine powering the **Obsidian** platform — an event-driven automation and data management system built with **Node.js**, **Express**, and **PostgreSQL/MongoDB**.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Live API
 
-### `npm start`
+🔗 **Live Deployment:** [https://obsidian-core-backend.onrender.com/](https://obsidian-core-backend.onrender.com/)  
+🖥️ **Frontend Dashboard:** [https://dashboard-3let.onrender.com/](https://dashboard-3let.onrender.com/)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🧠 Overview
 
-### `npm test`
+The **Obsidian Core Backend** provides the underlying API, event bus, and automation engine for the platform.  
+It’s built with modular Express routes and supports live communication through WebSockets, allowing the frontend dashboard to react to real-time updates.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🧰 Tech Stack
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+| Layer | Technology |
+|--------|-------------|
+| Server | Node.js + Express |
+| Database | PostgreSQL (via Sequelize) / MongoDB |
+| Auth | JWT (JSON Web Tokens) |
+| Realtime | WebSocket + EventEmitter |
+| Deployment | Render |
+| Language | JavaScript (ES6+) |
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🧩 Key Features
 
-### `npm run eject`
+- 🎯 Modular route structure (auth, events, users, system)
+- 📡 WebSocket event system for real-time updates
+- 🧠 EventBus engine with action triggers
+- 🔐 JWT authentication and refresh tokens
+- 🗂️ PostgreSQL + Sequelize ORM integration
+- 🛠️ RESTful API design with versioning support
+- ⚙️ Configurable `.env` for dev/production environments
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## ⚙️ Setup Instructions
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 1️⃣ Clone the repository
+```bash
+git clone https://github.com/KSLW/obsidian-core-backend
+cd obsidian-core-backend

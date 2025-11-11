@@ -6,7 +6,7 @@ The backend engine powering the **Obsidian** platform — an event-driven automa
 
 ## 🚀 Live API
 
-🔗 **Live Deployment:**   https://dashboard-3let.onrender.com/
+🔗 **Live Deployment:**   https://obsidian-core-backend.onrender.com
 
 ---
 

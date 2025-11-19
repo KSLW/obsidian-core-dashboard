@@ -1,0 +1,17 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.desc {
+  color: var(--text-dim);
+  margin-top: 6px;
+  font-size: 0.9rem;
+}

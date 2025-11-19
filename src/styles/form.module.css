@@ -1,0 +1,25 @@
+.formRow {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 16px;
+}
+
+.formRow > div {
+  flex: 1;
+}
+
+.formGroup {
+  margin-bottom: 24px;
+}
+
+.formSectionTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.formSectionDesc {
+  color: var(--text-dim);
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+}

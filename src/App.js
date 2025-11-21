@@ -28,6 +28,7 @@ function AnimatedRoutes() {
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/auth/twitch/" />
           <Route path="/auth/discord/" />
+          <Route path="/api/auth/discord/login" element={<DashboardPage />} />
         </Routes>
       </PageTransition>
     </AnimatePresence>

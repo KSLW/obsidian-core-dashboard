@@ -126,7 +126,24 @@ export default function DashboardPage() {
       Connect Twitch
     </button>
   )}
+
+  <span className={styles.connectionLabel}>Discord:</span>
+
+{auth?.discord?.accessToken ? (
+  <>
+    <span className={styles.connected}>Connected ✓</span>
+    <button className={styles.disconnectBtn} onClick={logoutDiscord}>
+      Disconnect
+    </button>
+  </>
+) : (
+  <button className={styles.connectBtn} onClick={handleConnectDiscord}>
+    Connect Discord
+  </button>
+)}
+
 </div>
+
 
 
       {/* SYSTEM STATS */}

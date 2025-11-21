@@ -1,0 +1,60 @@
+.bar {
+  width: 100%;
+  height: 44px;
+  background: var(--card-bg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  border-bottom: 1px solid var(--border-color);
+  backdrop-filter: blur(6px);
+}
+
+.left, .right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.label {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.item {
+  color: var(--text-main);
+  font-size: 0.9rem;
+}
+
+.online {
+  color: #49d668;
+  animation: pulseOnline 1.5s infinite ease-in-out;
+}
+
+.offline {
+  color: #e53935;
+}
+
+@keyframes pulseOnline {
+  0% { opacity: 0.9; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.15); }
+  100% { opacity: 0.9; transform: scale(1); }
+}
+
+.actionBtn {
+  background: var(--input-bg);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.25rem 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+
+.actionBtn:hover {
+  background: var(--card-bg-hover);
+}

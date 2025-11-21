@@ -1,56 +1,57 @@
-@import "./theme.css";
+@import "./variables.css";
 
-/* TYPOGRAPHY */
+/* Reset + Base */
 body {
   margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: "Inter", sans-serif;
-  line-height: 1.5;
+  padding: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: "Inter", system-ui, sans-serif;
 }
 
-/* Headings */
-h1, h2, h3, h4 {
-  margin: 0 0 15px 0;
-  font-weight: 600;
-}
-
-h1 { font-size: 2rem; }
-h2 { font-size: 1.6rem; }
-h3 { font-size: 1.3rem; }
-
-/* Paragraph spacing */
-p {
-  margin: 0 0 10px 0;
-}
-
-/* Utility spacing classes */
-.mt-20 { margin-top: 20px; }
-.mb-20 { margin-bottom: 20px; }
-
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
-
-::-webkit-scrollbar-track {
-  background: var(--bg);
-}
-
 ::-webkit-scrollbar-thumb {
-  background: var(--border);
+  background: #444;
   border-radius: 4px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--bg-hover);
+/* Default input/button styles */
+input,
+textarea,
+select {
+  background: var(--input-bg);
+  color: var(--color-text);
+  border: 1px solid var(--input-border);
+  padding: 0.5rem;
+  border-radius: var(--radius);
 }
 
-.flex { display: flex; }
-.flex-center { display: flex; align-items: center; justify-content: center; }
-.space-between { display: flex; justify-content: space-between; }
-.gap-10 { gap: 10px; }
-.gap-20 { gap: 20px; }
-.mt-10 { margin-top: 10px; }
-.mb-10 { margin-bottom: 10px; }
-.mt-20 { margin-top: 20px; }
-.mb-20 { margin-bottom: 20px; }
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--input-focus);
+}
+
+/* Buttons */
+button {
+  background: var(--color-accent);
+  color: white;
+  border: none;
+  padding: 0.55rem 1rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+button:hover {
+  background: var(--color-accent-hover);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

@@ -1,0 +1,87 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.section {
+  padding: 1.4rem;
+  background: var(--card-bg);
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+}
+
+.section h2 {
+  margin: 0 0 1rem 0;
+  font-size: 1.3rem;
+}
+
+.section label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+}
+
+.section input,
+.section select {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: var(--input-bg);
+  color: var(--text-main);
+  margin-bottom: 1rem;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.colorGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.colorItem input[type="color"] {
+  width: 100%;
+  height: 40px;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.resetBtn {
+  grid-column: 1 / -1;
+  padding: 0.5rem 1rem;
+  border: none;
+  background: var(--accent);
+  color: white;
+  border-radius: 6px;
+  margin-top: 0.5rem;
+  cursor: pointer;
+}
+
+.resetBtn:hover {
+  opacity: 0.85;
+}
+
+.saveBtn {
+  padding: 0.8rem 1.4rem;
+  background: var(--accent);
+  color: white;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.saveBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

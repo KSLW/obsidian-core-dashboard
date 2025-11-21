@@ -1,0 +1,46 @@
+.wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+}
+
+.wrapper input {
+  display: none;
+}
+
+.track {
+  width: 40px;
+  height: 22px;
+  background: var(--border-color);
+  border-radius: 100px;
+  position: relative;
+  transition: background 0.2s ease;
+}
+
+.thumb {
+  width: 18px;
+  height: 18px;
+  background: var(--card-bg);
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: 0.2s ease;
+  box-shadow: 0 0 4px rgba(0,0,0,0.4);
+}
+
+/* Active state */
+.wrapper input:checked + .track {
+  background: var(--accent);
+}
+
+.wrapper input:checked + .track .thumb {
+  transform: translateX(18px);
+}
+
+/* Label text */
+.text {
+  font-size: 0.9rem;
+  color: var(--text-main);
+}

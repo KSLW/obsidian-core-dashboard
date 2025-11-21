@@ -1,10 +1,134 @@
-.wrapper {
+@import "../styles/variables.css";
+
+.layout {
   display: flex;
   height: 100vh;
+  background: var(--background);
 }
 
+/* SIDEBAR */
+.sidebar {
+  width: 240px;
+  background: var(--sidebar-bg, rgba(25, 25, 25, 0.92));
+  backdrop-filter: blur(8px);
+  border-right: 1px solid var(--border-color);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.28s ease, width 0.28s ease;
+}
+
+.open {
+  transform: translateX(0);
+}
+
+.closed {
+  transform: translateX(-100%);
+}
+
+/* Header */
+.sidebarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.closeBtn {
+  background: transparent;
+  border: none;
+  color: var(--text-main);
+  cursor: pointer;
+  padding: 0.2rem;
+  opacity: 0.75;
+  transition: opacity 0.2s;
+}
+
+.closeBtn:hover {
+  opacity: 1;
+}
+
+.logo {
+  color: var(--accent);
+  font-size: 1.45rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* NAVIGATION */
+.nav {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  gap: 0.45rem;
+}
+
+.link,
+.activeLink {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.65rem 0.9rem;
+  border-radius: var(--radius);
+  text-decoration: none;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  transition: 0.2s ease;
+}
+
+.link:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.activeLink {
+  background: var(--accent);
+  color: white;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.45);
+}
+
+/* MAIN CONTENT */
 .content {
   flex: 1;
-  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.pageContent {
+  flex: 1;
   overflow-y: auto;
+  padding: 1.5rem;
+}
+
+/* HAMBURGER BUTTON (MOBILE) */
+.openBtn {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.5rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  background: var(--card-bg);
+  color: var(--text-main);
+  display: none;
+  z-index: 20;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 900px) {
+  .openBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sidebar {
+    position: absolute;
+    height: 100%;
+    z-index: 30;
+  }
+
+  .pageContent {
+    padding-top: 3.2rem; /* space for status bar */
+  }
 }

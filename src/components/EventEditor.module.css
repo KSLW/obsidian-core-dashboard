@@ -1,0 +1,58 @@
+.card {
+  padding: 1.2rem;
+  background: var(--card-bg);
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  margin-bottom: 1rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.toggleLabel {
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.editor textarea {
+  width: 100%;
+  margin-top: 0.8rem;
+  padding: 0.7rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: var(--input-bg);
+  color: var(--text-main);
+  resize: vertical;
+}
+
+.saveBtn {
+  margin-top: 0.9rem;
+  padding: 0.6rem 1rem;
+  background: var(--accent);
+  color: white;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: 0.15s ease;
+  font-weight: 500;
+}
+
+.saveBtn:hover {
+  opacity: 0.85;
+}
+
+.saveBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

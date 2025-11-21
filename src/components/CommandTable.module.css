@@ -1,0 +1,85 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table thead {
+  background: var(--card-header-bg);
+}
+
+.table th {
+  text-align: left;
+  padding: 0.75rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.actionsCol {
+  width: 70px;
+}
+
+.table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: top;
+}
+
+.name {
+  font-weight: 600;
+}
+
+.response {
+  max-width: 350px;
+}
+
+.responseText {
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 80px;
+  overflow-y: auto;
+}
+
+.enabled {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.disabled {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.iconBtn {
+  background: var(--button-bg);
+  border: none;
+  padding: 0.4rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: 0.15s ease;
+}
+
+.iconBtn:hover {
+  background: var(--button-hover);
+}
+
+.delete {
+  background: var(--danger-bg);
+  color: white;
+}
+
+.delete:hover {
+  opacity: 0.85;
+}

@@ -102,25 +102,32 @@ export default function DashboardPage() {
         </button>
       </div>
 
-      {/* CONNECTION STATUS */}
-      <div className={styles.connectionRow}>
-        <span className={styles.connectionLabel}>Twitch:</span>
+{/* CONNECTION STATUS */}
+<div className={styles.connectionRow}>
+  <span className={styles.connectionLabel}>Twitch:</span>
 
-        {authLoading ? (
-          <span className={styles.muted}>Checking Twitch…</span>
-        ) : auth?.twitch?.accessToken ? (
-          <>
-            <span className={styles.connected}>Connected ✓</span>
-            <button className={styles.disconnectBtn} onClick={logoutTwitch}>
-              Disconnect
-            </button>
-          </>
-        ) : (
-          <button className={styles.connectBtn} onClick={handleConnectTwitch}>
-            Connect Twitch
-          </button>
-        )}
-      </div>
+  {authLoading ? (
+    <span className={styles.muted}>Checking Twitch…</span>
+  ) : auth?.twitch?.accessToken ? (
+    <>
+      <span className={styles.connected}>Connected ✓</span>
+      <button
+        className={styles.disconnectBtn}
+        onClick={logoutTwitch}
+      >
+        Disconnect
+      </button>
+    </>
+  ) : (
+    <button
+      className={styles.connectBtn}
+      onClick={handleConnectTwitch}
+    >
+      Connect Twitch
+    </button>
+  )}
+</div>
+
 
       {/* SYSTEM STATS */}
       <div className={styles.sectionHeader}>

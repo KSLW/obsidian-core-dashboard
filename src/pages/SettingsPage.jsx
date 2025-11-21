@@ -70,24 +70,27 @@ export default function SettingsPage() {
   // -------------------------------
   // SAVE DISCORD KEYS
   // -------------------------------
-  const handleSaveDiscordKeys = async (e) => {
-    e.preventDefault();
-    setSavingDiscord(true);
-    setDiscordMsg(null);
+useEffect(() => {
+  if (settings) {
+    setDiscordClientId(settings.discordClientId || "");
+    setDiscordClientSecret(settings.discordClientSecret || "");
+  }
+}, [settings]);
 
-    try {
-      await apiClient.saveDiscordKeys({
-        discordClientId,
-        discordClientSecret,
-      });
-      setDiscordMsg("Discord App Keys saved successfully!");
-    } catch (err) {
-      setDiscordMsg("Failed to save Discord keys.");
-      console.error(err);
-    }
+const handleSaveDiscordKeys = async (e) => {
+  e.preventDefault();
+  setSavingDiscord(true);
+  setDiscordMsg(null);
 
-    setSavingDiscord(false);
-  };
+  try {
+    await apiClient.saveDiscordKeys({ discordClientId, discordClientSecret });
+    setDiscordMsg("Discord App Keys saved!");
+  } catch (err) {
+    setDiscordMsg("Failed to save Discord keys.");
+  }
+
+  setSavingDiscord(false);
+};
 
   return (
     <div className={styles.container}>

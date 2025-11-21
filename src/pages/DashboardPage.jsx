@@ -40,6 +40,10 @@ export default function DashboardPage() {
   // Discord bot invite link
   const DISCORD_CLIENT_ID = process.env.REACT_APP_DISCORD_CLIENT_ID;
   const inviteUrl = `https://discord.com/api/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&permissions=8&scope=bot%20applications.commands`;
+  const handleConnectDiscord = () => {
+  window.location.href = `${BACKEND_URL}/api/auth/discord/login`;
+};
+
 
   // On page load: refresh backend data + auth state
   useEffect(() => {

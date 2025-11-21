@@ -43,16 +43,14 @@ const updateSettings = (payload) =>
 
 // Save Twitch Client ID / Secret
 const saveTwitchKeys = ({ twitchClientId, twitchClientSecret }) =>
-  unwrap(
-    api.post("/api/auth/twitch/keys", {
-      twitchClientId,
-      twitchClientSecret
-    })
-  );
+  unwrap(api.post("/api/auth/twitch/keys", { twitchClientId, twitchClientSecret }));
 
-// Reset auth tokens (twitch / discord)
-const resetAuth = (provider) =>
-  unwrap(api.post(`/api/auth/reset/${provider}`));
+// Save Discord Client ID / Secret
+const saveDiscordKeys = ({ discordClientId, discordClientSecret }) =>
+  unwrap(api.post("/api/auth/discord/keys", { discordClientId, discordClientSecret }));
+
+// Reset provider auth tokens
+const resetAuth = (provider) => unwrap(api.post(`/api/auth/reset/${provider}`));
 
 // ============================================================================
 // EXPORT UNIFIED CLIENT
@@ -74,6 +72,7 @@ const apiClient = {
 
   // Twitch OAuth / Keys
   saveTwitchKeys,
+  saveDiscordKeys,
   resetAuth
 };
 

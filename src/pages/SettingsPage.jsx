@@ -106,6 +106,29 @@ export default function SettingsPage() {
             </a>
           )}
         </div>
+
+        <div className={styles.section}>
+  <h2>Discord App Settings</h2>
+
+  <label>
+    Client ID
+    <input
+      type="text"
+      value={settings.discordClientId || ""}
+      onChange={(e) => handleChange("discordClientId", e.target.value)}
+    />
+  </label>
+
+  <label>
+    Client Secret
+    <input
+      type="password"
+      value={settings.discordClientSecret || ""}
+      onChange={(e) => handleChange("discordClientSecret", e.target.value)}
+    />
+  </label>
+</div>
+
       </div>
     </div>
   );

@@ -7,7 +7,6 @@ export default function useAuth() {
   const [loading, setLoading] = useState(true);
 
   const refreshAuth = async () => {
-    setLoading(true);
     try {
       const data = await apiClient.getSettings();
       setAuth({
@@ -16,23 +15,27 @@ export default function useAuth() {
       });
     } catch (err) {
       console.error("Failed to load auth", err);
+      setAuth({ twitch: null, discord: null });
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
-  };
-
-  const logoutTwitch = async () => {
-    await apiClient.resetAuth("twitch");
-    refreshAuth();
-  };
-
-  const logoutDiscord = async () => {
-    await apiClient.resetAuth("discord");
-    refreshAuth();
   };
 
   useEffect(() => {
     refreshAuth();
   }, []);
+
+  const logoutTwitch = async () => {
+    setLoading(true);
+    await apiClient.resetAuth("twitch");
+    await refreshAuth();
+  };
+
+  const logoutDiscord = async () => {
+    setLoading(true);
+    await apiClient.resetAuth("discord");
+    await refreshAuth();
+  };
 
   return {
     auth,

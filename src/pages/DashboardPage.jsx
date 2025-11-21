@@ -35,7 +35,7 @@ export default function DashboardPage() {
 
   // Backend URL for OAuth redirects
   const BACKEND_URL =
-    process.env.REACT_APP_BACKEND_URL || "http://localhost:3001";
+    process.env.REACT_APP_BACKEND_URL || "https://obsidian-core-backend.onrender.com";
 
   // Discord bot invite link
   const DISCORD_CLIENT_ID = process.env.REACT_APP_DISCORD_CLIENT_ID;

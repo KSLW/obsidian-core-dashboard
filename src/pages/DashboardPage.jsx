@@ -1,3 +1,4 @@
+// src/pages/DashboardPage.jsx
 import { useEffect, useState } from "react";
 import styles from "./DashboardPage.module.css";
 import { motion, AnimatePresence } from "framer-motion";
@@ -7,7 +8,7 @@ import useCommands from "../hooks/useCommands";
 import useEvents from "../hooks/useEvents";
 import useSystem from "../hooks/useSystem";
 import useSettings from "../hooks/useSettings";
-import useAuth  from "../hooks/useAuth";
+import useAuth from "../hooks/useAuth";
 
 import {
   Server,
@@ -20,37 +21,39 @@ import {
 } from "lucide-react";
 
 export default function DashboardPage() {
-
-  // FIXED — each refresh gets a unique name
   const { modules, refresh: refreshModules } = useModules();
   const { commands, refresh: refreshCommands } = useCommands();
   const { events, refresh: refreshEvents } = useEvents();
   const { restartBackend } = useSystem();
-  const { settings, refresh: refreshSettings } = useSettings();
-  const { auth, loading, logoutTwitch, logoutDiscord } = useAuth();
+  const { refresh: refreshSettings } = useSettings();
+  const { auth, loading: authLoading, refreshAuth, logoutTwitch, logoutDiscord } = useAuth();
 
   const [backendOnline, setBackendOnline] = useState(false);
-
   const [showStats, setShowStats] = useState(true);
   const [showCommandsSection, setShowCommandsSection] = useState(true);
   const [showEventsSection, setShowEventsSection] = useState(true);
-  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
-  // Discord bot invite
-  const CLIENT_ID = process.env.REACT_APP_DISCORD_CLIENT_ID;
-  const inviteUrl = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&permissions=8&scope=bot%20applications.commands`;
+  // Backend URL for OAuth redirects
+  const BACKEND_URL =
+    process.env.REACT_APP_BACKEND_URL || "http://localhost:3001";
 
+  // Discord bot invite link
+  const DISCORD_CLIENT_ID = process.env.REACT_APP_DISCORD_CLIENT_ID;
+  const inviteUrl = `https://discord.com/api/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&permissions=8&scope=bot%20applications.commands`;
+
+  // On page load: refresh backend data + auth state
   useEffect(() => {
-    // FIXED — each refresh is called correctly
     refreshModules();
     refreshCommands();
     refreshEvents();
     refreshSettings();
 
-    // Backend ping
+    // VERY IMPORTANT: refresh auth when user returns from Twitch OAuth
+    refreshAuth();
+
     const ping = async () => {
       try {
-        const res = await fetch("/api/health");
+        const res = await fetch(`${BACKEND_URL}/api/health`);
         setBackendOnline(res.ok);
       } catch {
         setBackendOnline(false);
@@ -58,7 +61,19 @@ export default function DashboardPage() {
     };
 
     ping();
-  }, [refreshModules, refreshCommands, refreshEvents, refreshSettings]);
+  }, [
+    refreshModules,
+    refreshCommands,
+    refreshEvents,
+    refreshSettings,
+    refreshAuth,
+    BACKEND_URL,
+  ]);
+
+  const handleConnectTwitch = () => {
+    // Forces a full redirect outside React Router
+    window.location.href = `${BACKEND_URL}/api/auth/twitch/login`;
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -88,32 +103,24 @@ export default function DashboardPage() {
       </div>
 
       {/* CONNECTION STATUS */}
+      <div className={styles.connectionRow}>
+        <span className={styles.connectionLabel}>Twitch:</span>
 
-{/* Twitch */}
-<span className={styles.connectionLabel}>Twitch:</span>
-
-{auth?.twitch?.accessToken ? (
-  <>
-    <p className={styles.connected}>Connected ✓</p>
-    <button
-      className={styles.disconnectBtn}
-      onClick={logoutTwitch}
-    >
-      Disconnect Twitch
-    </button>
-  </>
-) : (
-  <button
-    className={styles.connectBtn}
-    onClick={() => {
-      window.location.href = `${BACKEND_URL}/api/auth/twitch/login`;
-    }}
-  >
-    Connect Twitch
-  </button>
-)}
-
-
+        {authLoading ? (
+          <span className={styles.muted}>Checking Twitch…</span>
+        ) : auth?.twitch?.accessToken ? (
+          <>
+            <span className={styles.connected}>Connected ✓</span>
+            <button className={styles.disconnectBtn} onClick={logoutTwitch}>
+              Disconnect
+            </button>
+          </>
+        ) : (
+          <button className={styles.connectBtn} onClick={handleConnectTwitch}>
+            Connect Twitch
+          </button>
+        )}
+      </div>
 
       {/* SYSTEM STATS */}
       <div className={styles.sectionHeader}>
@@ -166,7 +173,7 @@ export default function DashboardPage() {
         )}
       </AnimatePresence>
 
-      {/* LATEST COMMANDS */}
+      {/* Latest Commands */}
       <div className={styles.sectionHeader}>
         <h2>Latest Commands</h2>
         <button
@@ -198,7 +205,7 @@ export default function DashboardPage() {
         )}
       </AnimatePresence>
 
-      {/* LATEST EVENTS */}
+      {/* Latest Events */}
       <div className={styles.sectionHeader}>
         <h2>Latest Events</h2>
         <button

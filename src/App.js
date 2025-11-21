@@ -25,6 +25,7 @@ function AnimatedRoutes() {
           <Route path="/events" element={<EventsPage />} />
           <Route path="/modules" element={<ModulesPage />} />
           <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/auth/twitch/" />
           <Route path="/auth/discord/" />
         </Routes>

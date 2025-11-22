@@ -8,7 +8,7 @@ const BACKEND_URL =
 // Create unified axios instance
 const api = axios.create({
   baseURL: BACKEND_URL,
-  headers: { "Content-Type": "application/json" }
+  headers: { "Content-Type": "application/json" },
 });
 
 // Generic wrapper for .data extraction
@@ -43,15 +43,25 @@ const updateSettings = (payload) =>
 
 // Save Twitch Client ID / Secret
 const saveTwitchKeys = ({ twitchClientId, twitchClientSecret }) =>
-  unwrap(api.post("/api/auth/twitch/keys", { twitchClientId, twitchClientSecret }));
+  unwrap(
+    api.post("/api/auth/twitch/keys", {
+      twitchClientId,
+      twitchClientSecret,
+    })
+  );
 
 // Save Discord Client ID / Secret
 const saveDiscordKeys = ({ discordClientId, discordClientSecret }) =>
-  unwrap(api.post("/api/auth/discord/keys", { discordClientId, discordClientSecret }));
+  unwrap(
+    api.post("/api/auth/discord/keys", {
+      discordClientId,
+      discordClientSecret,
+    })
+  );
 
-// Reset provider auth tokens
-const resetAuth = (provider) => unwrap(api.post(`/api/auth/reset/${provider}`));
-
+// Reset auth tokens (twitch / discord)
+const resetAuth = (provider) =>
+  unwrap(api.post(`/api/auth/reset/${provider}`));
 
 // ============================================================================
 // EXPORT UNIFIED CLIENT
@@ -71,10 +81,10 @@ const apiClient = {
   getSettings,
   updateSettings,
 
-  // Twitch OAuth / Keys
+  // OAuth / Keys
   saveTwitchKeys,
   saveDiscordKeys,
-  resetAuth
+  resetAuth,
 };
 
 export default apiClient;

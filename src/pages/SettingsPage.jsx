@@ -1,3 +1,4 @@
+// src/pages/SettingsPage.jsx
 import React, { useState, useEffect } from "react";
 import useSettings from "../hooks/useSettings";
 import SettingsForm from "../components/SettingsForm";
@@ -14,40 +15,32 @@ export default function SettingsPage() {
     logoutDiscord,
   } = useAuth();
 
-  // -------------------------------
-  // ⭐ TWITCH LOCAL STATE
-  // -------------------------------
+  const BACKEND_URL =
+    process.env.REACT_APP_BACKEND_URL || "http://localhost:3001";
+
+  // Twitch app keys
   const [twitchClientId, setTwitchClientId] = useState("");
   const [twitchClientSecret, setTwitchClientSecret] = useState("");
   const [savingTwitch, setSavingTwitch] = useState(false);
   const [twitchMsg, setTwitchMsg] = useState(null);
 
-  // -------------------------------
-  // ⭐ DISCORD LOCAL STATE
-  // -------------------------------
+  // Discord app keys
   const [discordClientId, setDiscordClientId] = useState("");
   const [discordClientSecret, setDiscordClientSecret] = useState("");
   const [savingDiscord, setSavingDiscord] = useState(false);
   const [discordMsg, setDiscordMsg] = useState(null);
 
-  // -------------------------------
-  // Load settings into local state
-  // -------------------------------
+  // Load keys from settings when they arrive
   useEffect(() => {
-    if (settings) {
-      // Twitch
-      setTwitchClientId(settings.twitchClientId || "");
-      setTwitchClientSecret(settings.twitchClientSecret || "");
+    if (!settings) return;
 
-      // Discord
-      setDiscordClientId(settings.discordClientId || "");
-      setDiscordClientSecret(settings.discordClientSecret || "");
-    }
+    setTwitchClientId(settings.twitchClientId || "");
+    setTwitchClientSecret(settings.twitchClientSecret || "");
+
+    setDiscordClientId(settings.discordClientId || "");
+    setDiscordClientSecret(settings.discordClientSecret || "");
   }, [settings]);
 
-  // -------------------------------
-  // SAVE TWITCH KEYS
-  // -------------------------------
   const handleSaveTwitchKeys = async (e) => {
     e.preventDefault();
     setSavingTwitch(true);
@@ -58,39 +51,41 @@ export default function SettingsPage() {
         twitchClientId,
         twitchClientSecret,
       });
-      setTwitchMsg("Twitch App Keys saved successfully!");
+      setTwitchMsg("Twitch app keys saved successfully.");
     } catch (err) {
-      setTwitchMsg("Failed to save Twitch keys.");
       console.error(err);
+      setTwitchMsg("Failed to save Twitch keys.");
+    } finally {
+      setSavingTwitch(false);
     }
-
-    setSavingTwitch(false);
   };
 
-  // -------------------------------
-  // SAVE DISCORD KEYS
-  // -------------------------------
-useEffect(() => {
-  if (settings) {
-    setDiscordClientId(settings.discordClientId || "");
-    setDiscordClientSecret(settings.discordClientSecret || "");
-  }
-}, [settings]);
+  const handleSaveDiscordKeys = async (e) => {
+    e.preventDefault();
+    setSavingDiscord(true);
+    setDiscordMsg(null);
 
-const handleSaveDiscordKeys = async (e) => {
-  e.preventDefault();
-  setSavingDiscord(true);
-  setDiscordMsg(null);
+    try {
+      await apiClient.saveDiscordKeys({
+        discordClientId,
+        discordClientSecret,
+      });
+      setDiscordMsg("Discord app keys saved successfully.");
+    } catch (err) {
+      console.error(err);
+      setDiscordMsg("Failed to save Discord keys.");
+    } finally {
+      setSavingDiscord(false);
+    }
+  };
 
-  try {
-    await apiClient.saveDiscordKeys({ discordClientId, discordClientSecret });
-    setDiscordMsg("Discord App Keys saved!");
-  } catch (err) {
-    setDiscordMsg("Failed to save Discord keys.");
-  }
+  const handleConnectTwitch = () => {
+    window.location.href = `${BACKEND_URL}/api/auth/twitch/login`;
+  };
 
-  setSavingDiscord(false);
-};
+  const handleConnectDiscord = () => {
+    window.location.href = `${BACKEND_URL}/api/auth/discord/login`;
+  };
 
   return (
     <div className={styles.container}>
@@ -99,114 +94,147 @@ const handleSaveDiscordKeys = async (e) => {
       {loading && <p className={styles.loading}>Loading settings…</p>}
       {error && <p className={styles.error}>{error}</p>}
 
-      {/* GENERAL SETTINGS FORM (EXISTING) */}
+      {/* GENERAL SETTINGS (existing behaviour) */}
       {settings && (
         <SettingsForm settings={settings} onSave={updateSettings} />
       )}
 
-      {/* ------------------------------ */}
-      {/* AUTH SECTION */}
-      {/* ------------------------------ */}
+      {/* AUTH STATUS */}
       <div className={styles.authSection}>
         <h2>Authentication</h2>
 
-        {/* TWITCH */}
+        {/* Twitch status */}
         <div className={styles.authRow}>
           <strong>Twitch:</strong>
-          {auth?.twitch?.accessToken ? (
+          {authLoading ? (
+            <span className={styles.muted}>Checking Twitch…</span>
+          ) : auth?.twitch?.accessToken ? (
             <>
               <span className={styles.connected}>Connected</span>
-              <button className={styles.disconnectBtn} onClick={logoutTwitch}>
+              <button
+                className={styles.disconnectBtn}
+                onClick={logoutTwitch}
+              >
                 Disconnect
               </button>
             </>
           ) : (
-            <a href="/api/auth/twitch/login" className={styles.connectBtn}>
+            <button
+              className={styles.connectBtn}
+              onClick={handleConnectTwitch}
+            >
               Connect Twitch
-            </a>
+            </button>
           )}
         </div>
 
-        {/* DISCORD */}
+        {/* Discord status */}
         <div className={styles.authRow}>
           <strong>Discord:</strong>
-          {auth?.discord?.accessToken ? (
+          {authLoading ? (
+            <span className={styles.muted}>Checking Discord…</span>
+          ) : auth?.discord?.accessToken ? (
             <>
               <span className={styles.connected}>Connected</span>
-              <button className={styles.disconnectBtn} onClick={logoutDiscord}>
+              <button
+                className={styles.disconnectBtn}
+                onClick={logoutDiscord}
+              >
                 Disconnect
               </button>
             </>
           ) : (
-            <a href="/api/auth/discord/login" className={styles.connectBtn}>
+            <button
+              className={styles.connectBtn}
+              onClick={handleConnectDiscord}
+            >
               Connect Discord
-            </a>
+            </button>
           )}
         </div>
+      </div>
 
-        {/* ------------------------------ */}
-        {/* DISCORD APP SETTINGS */}
-        {/* ------------------------------ */}
+      {/* TWITCH APP SETTINGS */}
+      <div className={styles.section}>
+        <h2>Twitch App Settings</h2>
+        <p className={styles.helpText}>
+          Paste your Twitch <strong>Client ID</strong> and{" "}
+          <strong>Client Secret</strong> from the Twitch Developer Console.
+        </p>
 
-        <h2>Discord App Settings</h2>
-
-        <form onSubmit={handleSaveDiscordKeys} className={styles.section}>
-          <label>
+        <form onSubmit={handleSaveTwitchKeys} className={styles.form}>
+          <label className={styles.label}>
             Client ID
             <input
+              className={styles.input}
+              type="text"
+              value={twitchClientId}
+              onChange={(e) => setTwitchClientId(e.target.value)}
+            />
+          </label>
+
+          <label className={styles.label}>
+            Client Secret
+            <input
+              className={styles.input}
+              type="password"
+              value={twitchClientSecret}
+              onChange={(e) => setTwitchClientSecret(e.target.value)}
+            />
+          </label>
+
+          <button
+            type="submit"
+            className={styles.saveBtn}
+            disabled={savingTwitch}
+          >
+            {savingTwitch ? "Saving…" : "Save Twitch Keys"}
+          </button>
+
+          {twitchMsg && <p className={styles.info}>{twitchMsg}</p>}
+        </form>
+      </div>
+
+      {/* DISCORD APP SETTINGS */}
+      <div className={styles.section}>
+        <h2>Discord App Settings</h2>
+        <p className={styles.helpText}>
+          Paste your Discord <strong>Client ID</strong> and{" "}
+          <strong>Client Secret</strong> from the Discord Developer Portal.
+        </p>
+
+        <form onSubmit={handleSaveDiscordKeys} className={styles.form}>
+          <label className={styles.label}>
+            Client ID
+            <input
+              className={styles.input}
               type="text"
               value={discordClientId}
               onChange={(e) => setDiscordClientId(e.target.value)}
             />
           </label>
 
-          <label>
+          <label className={styles.label}>
             Client Secret
             <input
+              className={styles.input}
               type="password"
               value={discordClientSecret}
               onChange={(e) => setDiscordClientSecret(e.target.value)}
             />
           </label>
 
-          <button type="submit" className={styles.saveBtn} disabled={savingDiscord}>
+          <button
+            type="submit"
+            className={styles.saveBtn}
+            disabled={savingDiscord}
+          >
             {savingDiscord ? "Saving…" : "Save Discord Keys"}
           </button>
 
-          {discordMsg && <p>{discordMsg}</p>}
+          {discordMsg && <p className={styles.info}>{discordMsg}</p>}
         </form>
       </div>
-
-      {/* ------------------------------ */}
-      {/* TWITCH APP SETTINGS */}
-      {/* ------------------------------ */}
-      <h2>Twitch App Settings</h2>
-
-      <form onSubmit={handleSaveTwitchKeys} className={styles.section}>
-        <label>
-          Client ID
-          <input
-            type="text"
-            value={twitchClientId}
-            onChange={(e) => setTwitchClientId(e.target.value)}
-          />
-        </label>
-
-        <label>
-          Client Secret
-          <input
-            type="password"
-            value={twitchClientSecret}
-            onChange={(e) => setTwitchClientSecret(e.target.value)}
-          />
-        </label>
-
-        <button type="submit" className={styles.saveBtn} disabled={savingTwitch}>
-          {savingTwitch ? "Saving…" : "Save Twitch Keys"}
-        </button>
-
-        {twitchMsg && <p>{twitchMsg}</p>}
-      </form>
     </div>
   );
 }
